@@ -54,7 +54,7 @@ function displayAddressBooksList() {
             nextPage.on('click', function() {
                 getAddressBooks(abKey);
                 abKey += 1;
-            }
+            })
             
         }
     )
