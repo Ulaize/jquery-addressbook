@@ -19,7 +19,7 @@ function getAddressBook(id) {
 }
 
 function getEntries(addressBookId, skip) {
-    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":5, "skip":' + (skip * 5) + '}');
+    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":2, "skip":' + (skip * 2) + '}');
 }
 
 function getEntry(entryId) {
@@ -28,19 +28,13 @@ function getEntry(entryId) {
 // End data retrieval functions
 
 // Functions that display things on the screen (views)
-function displayAddressBooksList() {
-    // Reference number for pagination of Address Books display page
-    var abKey = 0;
-    getAddressBooks(0).then(
+function displayAddressBooksList(pageNum) {
+    getAddressBooks(pageNum).then(
         function(addressBooks) {
             
             $app.html(''); // Clear the #app div
             $app.append('<h2>Address Books List</h2>');
             $app.append('<ul>');
-            // var previousPage = $('<button>previous page</button>');
-            // var nextPage = $('<button>next page</button>');
-            // $app.append(previousPage);
-            // $app.append(nextPage);
             
             addressBooks.forEach(function(ab) {
                 $app.find('ul').append('<li data-id="' + ab.id + '">' + ab.name + '</li>');
@@ -48,32 +42,53 @@ function displayAddressBooksList() {
             
             $app.find('li').on('click', function() {
                 var addressBookId = $(this).data('id');
-                displayAddressBook(addressBookId);
+                console.log(addressBookId);
+                displayAddressBook(addressBookId,0);
             });
             
-            // nextPage.on('click', function() {
-            //     getAddressBooks(abKey);
-            //     abKey += 1;
-            // })
+            var previousPage = $('<button>previous page</button>');
+            var nextPage = $('<button>next page</button>');
+            $app.append(previousPage);
+            $app.append(nextPage);
+            
+            nextPage.on('click', function() {
+                displayAddressBooksList(pageNum + 1);
+            })
+            previousPage.on('click', function() {
+                displayAddressBooksList(pageNum - 1);
+            })
             
         }
     )
 }
 
-function displayAddressBook(addressBookId) {
-    getEntries(addressBookId, 0).then(
+function displayAddressBook(addressBookId,pageNum) {
+    getEntries(addressBookId, pageNum).then(
         function(entries) {
             $app.html('');
             $app.append('<h2>Address Books Entries</h2>');
             $app.append('<ul>');
             entries.forEach(function(entry){
-                $app.find('ul').append('<li data-id="' + entry.id + '">' + entry.lastName + entry.firstName +'</li>');
+                $app.find('ul').append('<li data-id="' + entry.id + '">' + entry.lastName + ", " + entry.firstName +'</li>');
             });
             
             $app.find('li').on('click', function() {
                 var entryId = $(this).data('id');
                 displayEntry(entryId);
             });
+            
+            var previousPage = $('<button>previous page</button>');
+            var nextPage = $('<button>next page</button>');
+            $app.append(previousPage);
+            $app.append(nextPage);
+            
+            nextPage.on('click', function() {
+                displayAddressBook(addressBookId,pageNum + 1);
+            })
+            previousPage.on('click', function() {
+                displayAddressBook(addressBookId,pageNum - 1);
+            })
+            
         }
     )
 }
@@ -85,4 +100,4 @@ function displayEntry() {
 
 
 // Start the app by displaying all the addressbooks
-displayAddressBook(2);
+displayAddressBooksList(0);
