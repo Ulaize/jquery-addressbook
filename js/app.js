@@ -61,7 +61,7 @@ function displayAddressBooksList() {
 }
 
 function displayAddressBook(addressBookId) {
-    getEntries(addressBookId).then(
+    getEntries(addressBookId, 0).then(
         function(entries) {
             $app.html('');
             $app.append('<h2>Address Books Entries</h2>');
@@ -85,4 +85,4 @@ function displayEntry() {
 
 
 // Start the app by displaying all the addressbooks
-displayAddressBooksList();
+displayAddressBook(2);
