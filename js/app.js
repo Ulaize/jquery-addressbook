@@ -50,7 +50,21 @@ function displayAddressBook(addressBookId) {
     
 }
 
-function displayEntry() {
+function displayEntry(EntryId) {
+    getEntry().then(
+        function(entry){
+            console.log(entry)
+            
+            $app.html('');
+            $app.append('<h2>Entry</h2>');
+            
+            entry.forEach(function(entry) {
+                //Needed entry data (firstName, lastName and birthday) 
+                $app.find('ul').append('<li data-id="' + entry.id + '">' + entry.firstName  + '</li>');    
+                
+            })
+            
+        })
     
 }
 // End functions that display views
