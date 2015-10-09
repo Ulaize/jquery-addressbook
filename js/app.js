@@ -17,11 +17,11 @@ function getAddressBook(id) {
 }
 
 function getEntries(addressBookId) {
-    // TODO...
+    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":5}');
 }
 
 function getEntry(entryId) {
-    // TODO..
+    return $.getJSON(API_URL + '/Entries/' + entryId);
 }
 // End data retrieval functions
 
