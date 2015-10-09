@@ -11,7 +11,7 @@ var $app = $('#app');
 
 // Data retrieval functions
 function getAddressBooks(skip) {
-    return $.getJSON(API_URL + '/AddressBooks?filter={"order":"name%20ASC","limit":5, "skip":' + (skip*5) + ' }');
+    return $.getJSON(API_URL + '/AddressBooks?filter={"order":"name%20ASC","limit":5,"skip":' + (skip * 5) + '}');
 }
 
 function getAddressBook(id) {
@@ -31,7 +31,7 @@ function getEntry(entryId) {
 function displayAddressBooksList() {
     // Reference number for pagination of Address Books display page
     var abKey = 0;
-    getAddressBooks().then(
+    getAddressBooks(0).then(
         function(addressBooks) {
             
             $app.html(''); // Clear the #app div
