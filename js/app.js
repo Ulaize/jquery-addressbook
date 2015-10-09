@@ -9,15 +9,15 @@ var $app = $('#app');
 
 // Data retrieval functions
 function getAddressBooks() {
-    return $.getJSON(API_URL + '/AddressBooks');
+    return $.getJSON(API_URL + '/AddressBooks?filter={"order":"name%20ASC","limit":5}');
 }
 
 function getAddressBook(id) {
     return $.getJSON(API_URL + '/AddressBooks/' + id);
 }
 
-function getEntries(addressBookId) {
-    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":5}');
+function getEntries(addressBookId, skip) {
+    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":5, "skip":' + (skip * 5) + '}');
 }
 
 function getEntry(entryId) {
