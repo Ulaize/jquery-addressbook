@@ -61,7 +61,21 @@ function displayAddressBooksList() {
 }
 
 function displayAddressBook(addressBookId) {
-    
+    getEntries(addressBookId).then(
+        function(entries) {
+            $app.html('');
+            $app.append('<h2>Address Books Entries</h2>');
+            $app.append('<ul>');
+            entries.forEach(function(entry){
+                $app.find('ul').append('<li data-id="' + entry.id + '">' + entry.lastName + entry.firstName +'</li>');
+            });
+            
+            $app.find('li').on('click', function() {
+                var entryId = $(this).data('id');
+                displayEntry(entryId);
+            });
+        }
+    )
 }
 
 function displayEntry() {
