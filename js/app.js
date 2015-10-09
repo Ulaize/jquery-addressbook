@@ -10,8 +10,8 @@ var $app = $('#app');
 
 
 // Data retrieval functions
-function getAddressBooks() {
-    return $.getJSON(API_URL + '/AddressBooks?filter={"order":"name%20ASC","limit":5}');
+function getAddressBooks(skip) {
+    return $.getJSON(API_URL + '/AddressBooks?filter={"order":"name%20ASC","limit":5, "skip":' + (skip*5) + ' }');
 }
 
 function getAddressBook(id) {
@@ -37,6 +37,10 @@ function displayAddressBooksList() {
             $app.html(''); // Clear the #app div
             $app.append('<h2>Address Books List</h2>');
             $app.append('<ul>');
+            var previousPage = $('<button>previous page</button>');
+            var nextPage = $('<button>next page</button>');
+            $app.append(previousPage);
+            $app.append(nextPage);
             
             addressBooks.forEach(function(ab) {
                 $app.find('ul').append('<li data-id="' + ab.id + '">' + ab.name + '</li>');
@@ -46,8 +50,12 @@ function displayAddressBooksList() {
                 var addressBookId = $(this).data('id');
                 displayAddressBook(addressBookId);
             });
-            abKey =+ 1;
-            console.log(abKey);
+            
+            nextPage.on('click', function() {
+                getAddressBooks(abKey);
+                abKey += 1;
+            }
+            
         }
     )
 }
