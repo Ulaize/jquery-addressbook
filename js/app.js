@@ -7,6 +7,8 @@ var API_URL = "https://loopback-rest-api-demo-ziad-saab.c9.io/api";
 // Get a reference to the <div id="app">. This is where we will output our stuff
 var $app = $('#app');
 
+
+
 // Data retrieval functions
 function getAddressBooks() {
     return $.getJSON(API_URL + '/AddressBooks?filter={"order":"name%20ASC","limit":5}');
@@ -27,6 +29,8 @@ function getEntry(entryId) {
 
 // Functions that display things on the screen (views)
 function displayAddressBooksList() {
+    // Reference number for pagination of Address Books display page
+    var abKey = 0;
     getAddressBooks().then(
         function(addressBooks) {
             
@@ -42,6 +46,8 @@ function displayAddressBooksList() {
                 var addressBookId = $(this).data('id');
                 displayAddressBook(addressBookId);
             });
+            abKey =+ 1;
+            console.log(abKey);
         }
     )
 }
