@@ -19,7 +19,7 @@ function getAddressBook(id) {
 }
 
 function getEntries(addressBookId, skip) {
-    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":2, "skip":' + (skip * 2) + '}');
+    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":5, "skip":' + (skip * 5) + '}');
 }
 
 function getEntry(entryId) {
@@ -51,6 +51,14 @@ function displayAddressBooksList(pageNum) {
             $app.append(previousPage);
             $app.append(nextPage);
             
+            if(pageNum === 0){
+                previousPage.toggleClass("disabled");
+            }
+            
+            // if(pageNum === //addressBook.length){ //I need to figure out how to calculate the last page number.
+            //     var nextPage = $('<button disable>previous page</button>');
+            // }
+            
             nextPage.on('click', function() {
                 displayAddressBooksList(pageNum + 1);
             })
@@ -66,6 +74,11 @@ function displayAddressBook(addressBookId,pageNum) {
     getEntries(addressBookId, pageNum).then(
         function(entries) {
             $app.html('');
+            var previousStep = $('<button><--</button>');
+            $app.append(previousStep);
+            previousStep.on('click', function() {
+                displayAddressBooksList(0);
+            })
             $app.append('<h2>Address Books Entries</h2>');
             $app.append('<ul>');
             entries.forEach(function(entry){
