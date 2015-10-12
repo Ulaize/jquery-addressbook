@@ -40,7 +40,12 @@ function getPhones(entryId) {
 module.exports = {
     getAddressBooks: getAddressBooks,
     getAddressBook: getAddressBook,
-    getEntry: getEntry
+    getEntries:getEntries,
+    getEntry: getEntry,
+    getAddresses: getAddresses,
+    getEmails: getEmails,
+    getPhones: getPhones
+    
 };
 
 
