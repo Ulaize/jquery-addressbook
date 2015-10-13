@@ -49,7 +49,7 @@
 	$(document).foundation();
 
 	// Start the app by displaying all the addressbooks
-	displayFunctions.displayAddressBooksList(0, 5);
+	displayFunctions.displayAddressBooksList(0, 3);
 
 
 
@@ -77,8 +77,8 @@
 	            var hasNextPage = results.hasNextPage;
 	            
 	            $app.html(''); // Clear the #app div
-	            $app.append('<h2>Address Books List</h2>');
-	            $app.append('<ul>');
+	            $app.append('<section class="small-block-grid-12"><h2>Address Books List</h2></section>');
+	            $app.append('<ul class="no-bullet">');
 	            
 	            addressBooks.forEach(function(ab) {
 	                $app.find('ul').append('<li data-id="' + ab.id + '">' + ab.name + '</li>');
@@ -86,12 +86,11 @@
 	            
 	            $app.find('li').on('click', function() {
 	                var addressBookId = $(this).data('id');
-	                console.log(addressBookId);
 	                displayAddressBook(addressBookId,0, display);
 	            });
 	            
-	            var previousPage = $('<button>previous page</button>');
-	            var nextPage = $('<button>next page</button>');
+	            var previousPage = $('<button class="button round">previous page</button>');
+	            var nextPage = $('<button class="button round">next page</button>');
 	            $app.append(previousPage);
 	            $app.append(nextPage);
 	            
@@ -132,16 +131,19 @@
 	            
 	            $app.html('');
 	            
+	            //Main content
+	            $app.append('<section class="small-block-grid-12"><h2>Address Book Entries</h2></section>');
+	            
+	            
 	            //Button that takes you back to the previous step
-	            var previousStep = $('<button><--</button>');
+	            var previousStep = $('<button class="button round"><--</button>');
 	            $app.append(previousStep);
 	            previousStep.on('click', function() {
 	                displayAddressBooksList(0,display);
 	            });
 	            
-	            //Main content
-	            $app.append('<h2>Address Books Entries</h2>');
-	            $app.append('<ul>');
+	            
+	            $app.append('<ul class="no-bullet">');
 	            entries.forEach(function(entry){
 	                $app.find('ul').append('<li data-id="' + entry.id + '">' + entry.lastName + ", " + entry.firstName +'</li>');
 	            });
@@ -153,8 +155,8 @@
 	            
 	            
 	            //Previous and next button - creation and functionality
-	            var previousPage = $('<button>previous page</button>');
-	            var nextPage = $('<button>next page</button>');
+	            var previousPage = $('<button class="button round">previous page</button>');
+	            var nextPage = $('<button class="button round">next page</button>');
 	            $app.append(previousPage);
 	            $app.append(nextPage);
 	            
@@ -191,18 +193,19 @@
 	   dataFunctions.getEntry(EntryId).then(
 	       function(entry){
 	           $app.html('');
-	           console.log(EntryId);
+	           
+	            
+	            //main content
+	           $app.append('<section class="small-block-grid-12"><h2>Entry</h2></section>');
 	           
 	           //Button that takes you back to the previous step
-	            var previousStep = $('<button><--</button>');
+	            var previousStep = $('<button class="button round"><--</button>');
 	            $app.append(previousStep);
 	            previousStep.on('click', function() {
 	                displayAddressBook(addressBookId,0,display);
 	            });
 	            
-	            //main content
-	           $app.append('<h2>Entry</h2>');
-	           
+	            
 	           var $table = $('<table></table>');
 	           $app.append($table);
 	           
@@ -318,7 +321,7 @@
 	}
 
 	function getEntries(addressBookId, pageNum, display) {
-	    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":' + display + ', "skip":' + (pageNum * display) + '}').then(
+	    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":' + (display+1) + ', "skip":' + (pageNum * display) + '}').then(
 	        function(entries){
 	            if(entries.length > display){
 	                var hasNextPage=true;
