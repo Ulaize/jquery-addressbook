@@ -1,6 +1,10 @@
 @import "settings";
 @import "foundation";
 
+.disabled{
+    display:none;
+}
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",
