@@ -49,7 +49,7 @@
 	$(document).foundation();
 
 	// Start the app by displaying all the addressbooks
-	displayFunctions.displayAddressBooksList(0, 5);
+	displayFunctions.displayAddressBooksList(0, 3);
 
 
 
@@ -78,7 +78,7 @@
 	            
 	            $app.html(''); // Clear the #app div
 	            $app.append('<h2>Address Books List</h2>');
-	            $app.append('<ul>');
+	            $app.append('<ul class="square">');
 	            
 	            addressBooks.forEach(function(ab) {
 	                $app.find('ul').append('<li data-id="' + ab.id + '">' + ab.name + '</li>');
@@ -86,11 +86,10 @@
 	            
 	            $app.find('li').on('click', function() {
 	                var addressBookId = $(this).data('id');
-	                console.log(addressBookId);
 	                displayAddressBook(addressBookId,0, display);
 	            });
 	            
-	            var previousPage = $('<button>previous page</button>');
+	            var previousPage = $('<button class="button round">previous page</button>');
 	            var nextPage = $('<button>next page</button>');
 	            $app.append(previousPage);
 	            $app.append(nextPage);
@@ -159,10 +158,10 @@
 	            $app.append(nextPage);
 	            
 	            nextPage.on('click', function() {
-	                displayAddressBook(addressBookId,pageNum + 1);
+	                displayAddressBook(addressBookId,pageNum + 1,display);
 	            });
 	            previousPage.on('click', function() {
-	                displayAddressBook(addressBookId,pageNum - 1);
+	                displayAddressBook(addressBookId,pageNum - 1,display);
 	            });
 	            
 	            //disable first previous page button
@@ -318,7 +317,7 @@
 	}
 
 	function getEntries(addressBookId, pageNum, display) {
-	    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":' + display + ', "skip":' + (pageNum * display) + '}').then(
+	    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":' + (display+1) + ', "skip":' + (pageNum * display) + '}').then(
 	        function(entries){
 	            if(entries.length > display){
 	                var hasNextPage=true;

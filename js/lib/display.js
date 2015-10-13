@@ -99,10 +99,10 @@ function displayAddressBook(addressBookId,pageNum, display) {
             $app.append(nextPage);
             
             nextPage.on('click', function() {
-                displayAddressBook(addressBookId,pageNum + 1);
+                displayAddressBook(addressBookId,pageNum + 1,display);
             });
             previousPage.on('click', function() {
-                displayAddressBook(addressBookId,pageNum - 1);
+                displayAddressBook(addressBookId,pageNum - 1,display);
             });
             
             //disable first previous page button
