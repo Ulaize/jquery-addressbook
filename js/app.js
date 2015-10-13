@@ -3,5 +3,5 @@ var displayFunctions = require('./lib/display');
 $(document).foundation();
 
 // Start the app by displaying all the addressbooks
-displayFunctions.displayAddressBooksList(0, 5);
+displayFunctions.displayAddressBooksList(0, 3);
 
