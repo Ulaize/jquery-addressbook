@@ -30,7 +30,7 @@ function getAddressBook(id) {
 }
 
 function getEntries(addressBookId, pageNum, display) {
-    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":' + display + ', "skip":' + (pageNum * display) + '}').then(
+    return $.getJSON(API_URL + '/AddressBooks/' + addressBookId + '/entries?filter={"order":"lastname%20ASC","limit":' + (display+1) + ', "skip":' + (pageNum * display) + '}').then(
         function(entries){
             if(entries.length > display){
                 var hasNextPage=true;

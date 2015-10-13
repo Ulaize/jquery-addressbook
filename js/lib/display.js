@@ -19,7 +19,7 @@ function displayAddressBooksList(pageNum, display) {
             
             $app.html(''); // Clear the #app div
             $app.append('<h2>Address Books List</h2>');
-            $app.append('<ul>');
+            $app.append('<ul class="square">');
             
             addressBooks.forEach(function(ab) {
                 $app.find('ul').append('<li data-id="' + ab.id + '">' + ab.name + '</li>');
@@ -27,11 +27,10 @@ function displayAddressBooksList(pageNum, display) {
             
             $app.find('li').on('click', function() {
                 var addressBookId = $(this).data('id');
-                console.log(addressBookId);
                 displayAddressBook(addressBookId,0, display);
             });
             
-            var previousPage = $('<button>previous page</button>');
+            var previousPage = $('<button class="button round">previous page</button>');
             var nextPage = $('<button>next page</button>');
             $app.append(previousPage);
             $app.append(nextPage);
