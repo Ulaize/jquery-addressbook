@@ -123,7 +123,6 @@ function displayAddressBook(addressBookId,pageNum, display) {
     );
 }
 
-
 //function that displays a specific Entry within a specific AddressBook
 
 function displayEntry(EntryId, pageNum, display, addressBookId) {

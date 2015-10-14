@@ -1,7 +1,10 @@
 module.exports = function(grunt) {
+  
+  // Configuration of tasks
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    // Configuration of SASS task
     sass: {
       options: {
         includePaths: ['bower_components/foundation/scss']
@@ -16,7 +19,19 @@ module.exports = function(grunt) {
         }
       }
     },
-
+    
+    // Configuration for Webpack task
+    webpack: {
+      build: {
+        entry: './js/app.js',
+        output: {
+          path: "./js/",
+          filename: "app-bundle.js",
+        },
+      }
+    },
+    
+    // Configuration for the watch task
     watch: {
       grunt: {
         options: {
@@ -25,16 +40,32 @@ module.exports = function(grunt) {
         files: ['Gruntfile.js']
       },
 
+      // This part watches our sass folder, and runs the sass task when any file ending in .scss is modified inside
       sass: {
         files: 'scss/**/*.scss',
         tasks: ['sass']
+      },
+      
+      // This watches our js folder, and runs the webpack task when a file ending in .js is modified. Since the task outputs app-bundle.js in the js directory
+      // we have to exclude this file from our watch list
+      webpack: {
+        files: ['js/**/*.js', '!js/app-bundle.js'],
+        tasks: ['webpack']
       }
+    
+      
     }
   });
+  // End config of tasks
 
+  // Load the task runners
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-webpack');
+  // End load task runners
 
-  grunt.registerTask('build', ['sass']);
-  grunt.registerTask('default', ['build','watch']);
-}
+  // Definition of named tasks
+  grunt.registerTask('build', ['sass', 'webpack']);
+  grunt.registerTask('developement', ['build','watch']);
+  // End definition of named tasks
+};
