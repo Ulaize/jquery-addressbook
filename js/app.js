@@ -47,6 +47,3 @@ var thisRouter = new router;
 thisRouter.on('route:showAddressBooks');
 
 Backbone.history.start();
-
-// Start the app by displaying all the addressbooks
-// 
