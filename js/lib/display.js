@@ -18,8 +18,8 @@ function displayAddressBooksList(pageNum, display) {
             var hasNextPage = results.hasNextPage;
             
             $app.html(''); // Clear the #app div
-            $app.append('<h2>Address Books List</h2>');
-            $app.append('<ul class="square">');
+            $app.append('<section class="small-block-grid-12"><h2>Address Books List</h2></section>');
+            $app.append('<ul class="no-bullet">');
             
             addressBooks.forEach(function(ab) {
                 $app.find('ul').append('<li data-id="' + ab.id + '">' + ab.name + '</li>');
@@ -31,7 +31,7 @@ function displayAddressBooksList(pageNum, display) {
             });
             
             var previousPage = $('<button class="button round">previous page</button>');
-            var nextPage = $('<button>next page</button>');
+            var nextPage = $('<button class="button round">next page</button>');
             $app.append(previousPage);
             $app.append(nextPage);
             
@@ -72,16 +72,19 @@ function displayAddressBook(addressBookId,pageNum, display) {
             
             $app.html('');
             
+            //Main content
+            $app.append('<section class="small-block-grid-12"><h2>Address Book Entries</h2></section>');
+            
+            
             //Button that takes you back to the previous step
-            var previousStep = $('<button><--</button>');
+            var previousStep = $('<button class="button round"><--</button>');
             $app.append(previousStep);
             previousStep.on('click', function() {
                 displayAddressBooksList(0,display);
             });
             
-            //Main content
-            $app.append('<h2>Address Books Entries</h2>');
-            $app.append('<ul>');
+            
+            $app.append('<ul class="no-bullet">');
             entries.forEach(function(entry){
                 $app.find('ul').append('<li data-id="' + entry.id + '">' + entry.lastName + ", " + entry.firstName +'</li>');
             });
@@ -93,8 +96,8 @@ function displayAddressBook(addressBookId,pageNum, display) {
             
             
             //Previous and next button - creation and functionality
-            var previousPage = $('<button>previous page</button>');
-            var nextPage = $('<button>next page</button>');
+            var previousPage = $('<button class="button round">previous page</button>');
+            var nextPage = $('<button class="button round">next page</button>');
             $app.append(previousPage);
             $app.append(nextPage);
             
@@ -130,18 +133,19 @@ function displayEntry(EntryId, pageNum, display, addressBookId) {
    dataFunctions.getEntry(EntryId).then(
        function(entry){
            $app.html('');
-           console.log(EntryId);
+           
+            
+            //main content
+           $app.append('<section class="small-block-grid-12"><h2>Entry</h2></section>');
            
            //Button that takes you back to the previous step
-            var previousStep = $('<button><--</button>');
+            var previousStep = $('<button class="button round"><--</button>');
             $app.append(previousStep);
             previousStep.on('click', function() {
                 displayAddressBook(addressBookId,0,display);
             });
             
-            //main content
-           $app.append('<h2>Entry</h2>');
-           
+            
            var $table = $('<table></table>');
            $app.append($table);
            
