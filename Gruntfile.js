@@ -65,5 +65,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-webpack');
 
   grunt.registerTask('build', ['sass', 'webpack']);
-  grunt.registerTask('development', ['build', 'watch']);
+  grunt.registerTask('default', ['build', 'watch']);
 };
