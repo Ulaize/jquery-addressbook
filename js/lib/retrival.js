@@ -11,7 +11,7 @@ function getAddressBooks(pageNum, display) {
         function(addressBooks) {
             if (addressBooks.length > display) {
                 var hasNextPage = true;
-                addressBooks = addressBooks.slice(0, display-1);
+                addressBooks = addressBooks.slice(0, display);
             }
             else {
                 hasNextPage = false;
@@ -34,7 +34,7 @@ function getEntries(addressBookId, pageNum, display) {
         function(entries){
             if(entries.length > display){
                 var hasNextPage=true;
-                entries = entries.slice(0, display - 1);
+                entries = entries.slice(0, display);
             }
             else{
                 hasNextPage = false;
@@ -48,21 +48,26 @@ function getEntries(addressBookId, pageNum, display) {
     );
 }
 
-function getEntry(entryId) {
-    return $.getJSON(API_URL + '/Entries/' + entryId);
+
+function getEntry(entryId){
+    return $.getJSON(API_URL + '/Entries/' + entryId + '?filter={"include":["phones","addresses","emails"]}');
 }
 
-function getAddresses(entryId) {
-   return $.getJSON(API_URL + '/Entries/' + entryId + '/addresses');
-}
 
-function getEmails(entryId) {
-   return $.getJSON(API_URL + '/Entries/' + entryId + '/emails');
-}
+// function getEntry(entryId) {
+//     return $.getJSON(API_URL + '/Entries/' + entryId);
+// }
+// function getAddresses(entryId) {
+//   return $.getJSON(API_URL + '/Entries/' + entryId + '/addresses');
+// }
 
-function getPhones(entryId) {
-   return $.getJSON(API_URL + '/Entries/' + entryId + '/phones');
-}
+// function getEmails(entryId) {
+//   return $.getJSON(API_URL + '/Entries/' + entryId + '/emails');
+// }
+
+// function getPhones(entryId) {
+//   return $.getJSON(API_URL + '/Entries/' + entryId + '/phones');
+// }
 // End data retrieval functions
 
 
@@ -70,11 +75,7 @@ module.exports = {
     getAddressBooks: getAddressBooks,
     getAddressBook: getAddressBook,
     getEntries: getEntries,
-    getEntry: getEntry,
-    getAddresses: getAddresses,
-    getEmails: getEmails,
-    getPhones: getPhones
-    
+    getEntry: getEntry
 };
 
 

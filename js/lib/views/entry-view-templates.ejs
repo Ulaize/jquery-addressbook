@@ -1,0 +1,31 @@
+//Table view on entry
+
+<table>
+    <tr>
+        <th>First Name</th>
+            
+        <td> <%= entry.get('fistName') %></td>
+    </tr>
+    
+    <tr>
+        <th>Last Name</th>
+            
+        <td> <%= entry.get('lastName') %></td>
+    </tr>
+    
+    
+    
+    
+</table>
+
+            $table.append('<tr><th>Last Name</th><td>' + entry.lastName + '</td></tr>');
+            $table.append('<tr><th>Birthday</th><td>' + entry.birthday + '</td></tr>');
+
+            var $addressTr = $('<tr><th>Addresses</th><td></td></tr>');
+            $table.append($addressTr);
+
+            var $emailTr = $('<tr><th>Emails</th><td></td></tr>');
+            $table.append($emailTr);
+
+            var $phoneTr = $('<tr><th>Phones</th><td></td></tr>');
+            $table.append($phoneTr);

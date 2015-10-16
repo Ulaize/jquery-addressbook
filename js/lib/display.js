@@ -102,7 +102,7 @@ function displayEntry(EntryId, pageNum, display, addressBookId) {
     dataFunctions.getEntry(EntryId).then(
         function(entry) {
             $app.html('');
-
+            console.log(entry);
 
             //main content
             $app.append('<section class="small-block-grid-12"><h2>Entry</h2></section>');
@@ -112,30 +112,27 @@ function displayEntry(EntryId, pageNum, display, addressBookId) {
             var previousStep = $('<a href="#ab/addressbooks/' + addressBookId + '/' + pageNum + '"><button> <<< </button></a>');
 
             $app.append(previousStep);
-
+            
+            //Creating table
             var $table = $('<table></table>');
             $app.append($table);
-
+            
+            // First name, last name and birthday (which are not optional)
             $table.append('<tr><th>First Name</th><td>' + entry.firstName + '</td></tr>');
             $table.append('<tr><th>Last Name</th><td>' + entry.lastName + '</td></tr>');
             $table.append('<tr><th>Birthday</th><td>' + entry.birthday + '</td></tr>');
 
+            // Addreses, email and phones (which are optional)
+            
+            //Addresses
             var $addressTr = $('<tr><th>Addresses</th><td></td></tr>');
             $table.append($addressTr);
-
-            var $emailTr = $('<tr><th>Emails</th><td></td></tr>');
-            $table.append($emailTr);
-
-            var $phoneTr = $('<tr><th>Phones</th><td></td></tr>');
-            $table.append($phoneTr);
-
-
-            dataFunctions.getAddresses(EntryId).then(
-                function(addresses) {
-                    if (addresses.length === 0) {
-                        $addressTr.remove();
-                    }
-                    else {
+            
+            if (entry.addresses.length === 0) {
+                $addressTr.remove();
+            }
+            
+            else {
                         var $td = $addressTr.find('td');
                         for (var i = 0; i < addresses.length; i++) {
                             var add = addresses[i];
@@ -148,6 +145,16 @@ function displayEntry(EntryId, pageNum, display, addressBookId) {
                     }
                 }
             );
+            
+            
+            var $emailTr = $('<tr><th>Emails</th><td></td></tr>');
+            $table.append($emailTr);
+
+            var $phoneTr = $('<tr><th>Phones</th><td></td></tr>');
+            $table.append($phoneTr);
+
+            
+                    
 
             dataFunctions.getEmails(EntryId).then(
                 function(emails) {
